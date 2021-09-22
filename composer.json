@@ -1,0 +1,36 @@
+{
+    "type": "library",
+    "name": "nguyenanhung/uuid-helper",
+    "description": "UUID Helper, basic, simple and light",
+    "keywords": [
+        "helper",
+        "uuid",
+        "php"
+    ],
+    "homepage": "https://github.com/nguyenanhung/uuid-helper",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Nguyen An Hung",
+            "email": "dev@nguyenanhung.com",
+            "homepage": "https://nguyenanhung.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "ext-mbstring": "*"
+    },
+    "require-dev": {
+        "ramsey/uuid": "^4 || ^3"
+    },
+    "autoload": {
+        "psr-4": {
+            "nguyenanhung\\Libraries\\UUID\\": "src/"
+        },
+        "files": [
+            "helpers/helpers.php"
+        ]
+    }
+}
