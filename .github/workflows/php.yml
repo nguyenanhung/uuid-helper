@@ -1,5 +1,5 @@
-# GitHub Action for PHP HTML Helper & Libraries by HungNG
-name: Testing PHP UUID Helper & Libraries by HungNG
+# GitHub Action for PHP UUID - AlphaID Helper & Libraries by HungNG
+name: Testing PHP UUID - AlphaID Helper & Libraries by HungNG
 on: [ push, pull_request ]
 jobs:
     build:
@@ -30,5 +30,5 @@ jobs:
                     restore-keys: ${{ runner.os }}-composer-
             -   name: Install dependencies
                 run: composer install --no-progress --prefer-dist --optimize-autoloader
-            -   name: Test UUID Helper
+            -   name: Test UUID & AlphaID Helper
                 run: php ./test/test.php
