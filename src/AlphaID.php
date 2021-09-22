@@ -5,105 +5,20 @@
  * User: 713uk13m <dev@nguyenanhung.com>
  * Copyright: 713uk13m <dev@nguyenanhung.com>
  * Date: 09/22/2021
- * Time: 18:03
+ * Time: 19:55
  */
-if (!function_exists('generateUuidV3')) {
-    /**
-     * Function generateUuidV3
-     *
-     * @param $namespace
-     * @param $name
-     *
-     * @return bool|string
-     * @author   : 713uk13m <dev@nguyenanhung.com>
-     * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/22/2021 58:06
-     */
-    function generateUuidV3($namespace, $name)
-    {
-        return nguyenanhung\Libraries\UUID\UUID::v3($namespace, $name);
-    }
-}
-if (!function_exists('generateUuidV4')) {
-    /**
-     * Function generateUuidV4
-     *
-     * @return string
-     * @author   : 713uk13m <dev@nguyenanhung.com>
-     * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/22/2021 08:42
-     */
-    function generateUuidV4()
-    {
-        return nguyenanhung\Libraries\UUID\UUID::v4();
-    }
-}
-if (!function_exists('generateUuidV5')) {
-    /**
-     * Function generateUuidV5
-     *
-     * @param $namespace
-     * @param $name
-     *
-     * @return bool|string
-     * @author   : 713uk13m <dev@nguyenanhung.com>
-     * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/22/2021 58:28
-     */
-    function generateUuidV5($namespace, $name)
-    {
-        return nguyenanhung\Libraries\UUID\UUID::v5($namespace, $name);
-    }
-}
-if (!function_exists('generate_uuid_v3')) {
-    /**
-     * Function generate_uuid_v3
-     *
-     * @param $namespace
-     * @param $name
-     *
-     * @return bool|string
-     * @author   : 713uk13m <dev@nguyenanhung.com>
-     * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/22/2021 58:06
-     */
-    function generate_uuid_v3($namespace, $name)
-    {
-        return nguyenanhung\Libraries\UUID\UUID::v3($namespace, $name);
-    }
-}
-if (!function_exists('generate_uuid_v4')) {
-    /**
-     * Function generate_uuid_v4
-     *
-     * @return string
-     * @author   : 713uk13m <dev@nguyenanhung.com>
-     * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/22/2021 08:42
-     */
-    function generate_uuid_v4()
-    {
-        return nguyenanhung\Libraries\UUID\UUID::v4();
-    }
-}
-if (!function_exists('generate_uuid_v5')) {
-    /**
-     * Function generate_uuid_v5
-     *
-     * @param $namespace
-     * @param $name
-     *
-     * @return bool|string
-     * @author   : 713uk13m <dev@nguyenanhung.com>
-     * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/22/2021 58:28
-     */
-    function generate_uuid_v5($namespace, $name)
-    {
-        return nguyenanhung\Libraries\UUID\UUID::v5($namespace, $name);
-    }
-}
-if (!function_exists('generateAlphaId')) {
+
+namespace nguyenanhung\Libraries\UUID;
+
+/**
+ * Class AlphaID
+ *
+ * @package   nguyenanhung\Libraries\UUID
+ * @author    713uk13m <dev@nguyenanhung.com>
+ * @copyright 713uk13m <dev@nguyenanhung.com>
+ */
+class AlphaID
+{
     /**
      * Translates a number to a short alphanumeric version
      *
@@ -161,8 +76,64 @@ if (!function_exists('generateAlphaId')) {
      *
      * @return string string or long
      */
-    function generateAlphaId($in, $to_num = false, $pad_up = false, $passKey = null)
+    public static function generateAlphaId($in, $to_num = false, $pad_up = false, $passKey = null)
     {
-        return nguyenanhung\Libraries\UUID\AlphaID::generateAlphaId($in, $to_num, $pad_up, $passKey);
+        $index = "abcdefghijkmnpqrstuvwxyz123456789";
+        if ($passKey !== null) {
+            // Although this function's purpose is to just make the
+            // ID short - and not so much secure,
+            // with this patch by Simon Franz (http://blog.snaky.org/)
+            // you can optionally supply a password to make it harder
+            // to calculate the corresponding numeric ID
+            $indexLen = strlen($index);
+            for ($n = 0; $n < $indexLen; $n++) {
+                $i[] = $index[$n];
+            }
+            $passhash = hash('sha256', $passKey);
+            $passhash = (strlen($passhash) < strlen($index)) ? hash('sha512', $passKey) : $passhash;
+
+            for ($n = 0; $n < $indexLen; $n++) {
+                $p[] = $passhash[$n];
+            }
+            array_multisort($p, SORT_DESC, $i);
+            $index = implode($i);
+        }
+        $base = strlen($index);
+        if ($to_num) {
+            // Digital number  <<--  alphabet letter code
+            $in  = strrev($in);
+            $out = 0;
+            $len = strlen($in) - 1;
+            for ($t = 0; $t <= $len; $t++) {
+                $pow = pow($base, $len - $t);
+                $out = $out + strpos($index, $in[$t]) * $pow;
+            }
+            if (is_numeric($pad_up)) {
+                $pad_up--;
+                if ($pad_up > 0) {
+                    $out -= pow($base, $pad_up);
+                }
+            }
+            $out = sprintf('%F', $out);
+            $out = substr($out, 0, strpos($out, '.'));
+        } else {
+            // Digital number  -->>  alphabet letter code
+            if (is_numeric($pad_up)) {
+                $pad_up--;
+                if ($pad_up > 0) {
+                    $in += pow($base, $pad_up);
+                }
+            }
+            $out = "";
+            for ($t = floor(log($in, $base)); $t >= 0; $t--) {
+                $bcp = pow($base, $t);
+                $a   = floor($in / $bcp) % $base;
+                $out .= $index[$a];
+                $in  -= ($a * $bcp);
+            }
+            $out = strrev($out); // reverse
+        }
+
+        return $out;
     }
 }
