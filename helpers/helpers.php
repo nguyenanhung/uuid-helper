@@ -29,11 +29,12 @@ if (!function_exists('generateUuidV4')) {
      * Function generateUuidV4
      *
      * @return string
+     * @throws \Exception
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/22/2021 08:42
+     * @time     : 09/24/2021 57:05
      */
-    function generateUuidV4()
+    function generateUuidV4(): string
     {
         return nguyenanhung\Libraries\UUID\UUID::v4();
     }
@@ -77,11 +78,12 @@ if (!function_exists('generate_uuid_v4')) {
      * Function generate_uuid_v4
      *
      * @return string
+     * @throws \Exception
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/22/2021 08:42
+     * @time     : 09/24/2021 57:13
      */
-    function generate_uuid_v4()
+    function generate_uuid_v4(): string
     {
         return nguyenanhung\Libraries\UUID\UUID::v4();
     }
@@ -161,7 +163,7 @@ if (!function_exists('generateAlphaId')) {
      *
      * @return string string or long
      */
-    function generateAlphaId($in, $to_num = false, $pad_up = false, $passKey = null)
+    function generateAlphaId($in, bool $to_num = false, $pad_up = false, $passKey = null): string
     {
         return nguyenanhung\Libraries\UUID\AlphaID::generateAlphaId($in, $to_num, $pad_up, $passKey);
     }

@@ -76,7 +76,7 @@ class AlphaID
      *
      * @return string string or long
      */
-    public static function generateAlphaId($in, $to_num = false, $pad_up = false, $passKey = null)
+    public static function generateAlphaId($in, bool $to_num = false, $pad_up = false, $passKey = null): string
     {
         $index = "abcdefghijkmnpqrstuvwxyz123456789";
         if ($passKey !== null) {
@@ -105,13 +105,13 @@ class AlphaID
             $out = 0;
             $len = strlen($in) - 1;
             for ($t = 0; $t <= $len; $t++) {
-                $pow = pow($base, $len - $t);
+                $pow = $base ** ($len - $t);
                 $out = $out + strpos($index, $in[$t]) * $pow;
             }
             if (is_numeric($pad_up)) {
                 $pad_up--;
                 if ($pad_up > 0) {
-                    $out -= pow($base, $pad_up);
+                    $out -= $base ** $pad_up;
                 }
             }
             $out = sprintf('%F', $out);
@@ -121,12 +121,12 @@ class AlphaID
             if (is_numeric($pad_up)) {
                 $pad_up--;
                 if ($pad_up > 0) {
-                    $in += pow($base, $pad_up);
+                    $in += $base ** $pad_up;
                 }
             }
             $out = "";
             for ($t = floor(log($in, $base)); $t >= 0; $t--) {
-                $bcp = pow($base, $t);
+                $bcp = $base ** $t;
                 $a   = floor($in / $bcp) % $base;
                 $out .= $index[$a];
                 $in  -= ($a * $bcp);
