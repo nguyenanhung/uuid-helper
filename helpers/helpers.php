@@ -7,6 +7,9 @@
  * Date: 09/22/2021
  * Time: 18:03
  */
+
+use Ramsey\Uuid\UuidInterface;
+
 if (!function_exists('generateUuidV3')) {
     /**
      * Function generateUuidV3
@@ -14,12 +17,12 @@ if (!function_exists('generateUuidV3')) {
      * @param $namespace
      * @param $name
      *
-     * @return bool|string
+     * @return \Ramsey\Uuid\UuidInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/22/2021 58:06
+     * @time     : 09/25/2021 22:47
      */
-    function generateUuidV3($namespace, $name)
+    function generateUuidV3($namespace, $name): UuidInterface
     {
         return nguyenanhung\Libraries\UUID\UUID::v3($namespace, $name);
     }
@@ -28,13 +31,12 @@ if (!function_exists('generateUuidV4')) {
     /**
      * Function generateUuidV4
      *
-     * @return string
-     * @throws \Exception
+     * @return \Ramsey\Uuid\UuidInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/24/2021 57:05
+     * @time     : 09/25/2021 24:07
      */
-    function generateUuidV4(): string
+    function generateUuidV4(): UuidInterface
     {
         return nguyenanhung\Libraries\UUID\UUID::v4();
     }
@@ -46,12 +48,12 @@ if (!function_exists('generateUuidV5')) {
      * @param $namespace
      * @param $name
      *
-     * @return bool|string
+     * @return \Ramsey\Uuid\UuidInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/22/2021 58:28
+     * @time     : 09/25/2021 22:55
      */
-    function generateUuidV5($namespace, $name)
+    function generateUuidV5($namespace, $name): UuidInterface
     {
         return nguyenanhung\Libraries\UUID\UUID::v5($namespace, $name);
     }
@@ -63,12 +65,12 @@ if (!function_exists('generate_uuid_v3')) {
      * @param $namespace
      * @param $name
      *
-     * @return bool|string
+     * @return \Ramsey\Uuid\UuidInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/22/2021 58:06
+     * @time     : 09/25/2021 23:03
      */
-    function generate_uuid_v3($namespace, $name)
+    function generate_uuid_v3($namespace, $name): UuidInterface
     {
         return nguyenanhung\Libraries\UUID\UUID::v3($namespace, $name);
     }
@@ -77,13 +79,12 @@ if (!function_exists('generate_uuid_v4')) {
     /**
      * Function generate_uuid_v4
      *
-     * @return string
-     * @throws \Exception
+     * @return \Ramsey\Uuid\UuidInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/24/2021 57:13
+     * @time     : 09/25/2021 23:57
      */
-    function generate_uuid_v4(): string
+    function generate_uuid_v4(): UuidInterface
     {
         return nguyenanhung\Libraries\UUID\UUID::v4();
     }
@@ -95,12 +96,12 @@ if (!function_exists('generate_uuid_v5')) {
      * @param $namespace
      * @param $name
      *
-     * @return bool|string
+     * @return \Ramsey\Uuid\UuidInterface
      * @author   : 713uk13m <dev@nguyenanhung.com>
      * @copyright: 713uk13m <dev@nguyenanhung.com>
-     * @time     : 09/22/2021 58:28
+     * @time     : 09/25/2021 22:29
      */
-    function generate_uuid_v5($namespace, $name)
+    function generate_uuid_v5($namespace, $name): UuidInterface
     {
         return nguyenanhung\Libraries\UUID\UUID::v5($namespace, $name);
     }

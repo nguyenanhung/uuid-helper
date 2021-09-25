@@ -7,3 +7,14 @@
  * Date: 09/22/2021
  * Time: 18:03
  */
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use nguyenanhung\Libraries\UUID\UUID;
+use nguyenanhung\Libraries\UUID\AlphaID;
+
+echo "AlphaID: " . AlphaID::generateAlphaId(202104081234) . PHP_EOL;
+echo "UUID v1: " . UUID::v1(1234, 2) . PHP_EOL;
+echo "UUID v3: " . UUID::v3('c558209e-1d95-11ec-8002-0000000004d2', 'hungng') . PHP_EOL;
+echo "UUID v4: " . UUID::v4() . PHP_EOL;
+echo "UUID v5: " . UUID::v5('c558209e-1d95-11ec-8002-0000000004d2', 'hungng') . PHP_EOL;
+echo "UUID v6: " . UUID::v1(12345, 3) . PHP_EOL;
