@@ -169,3 +169,17 @@ if (!function_exists('generateAlphaId')) {
         return nguyenanhung\Libraries\UUID\AlphaID::generateAlphaId($in, $to_num, $pad_up, $passKey);
     }
 }
+if (!function_exists('generateUniqueRandomId')) {
+    /**
+     * Function generateUniqueRandomId
+     *
+     * @return string
+     * @author   : 713uk13m <dev@nguyenanhung.com>
+     * @copyright: 713uk13m <dev@nguyenanhung.com>
+     * @time     : 09/25/2021 45:15
+     */
+    function generateUniqueRandomId(): string
+    {
+        return nguyenanhung\Libraries\UUID\RandomID::random();
+    }
+}
